@@ -28,11 +28,7 @@ class APIConfig {
      * this should be provided by the controller
      */
     public function __construct($request_uri, $method, $payload) {
-        /**
-        header("Access-Control-Allow-Orgin: *");
-        header("Access-Control-Allow-Methods: *");
-        header("Content-Type: application/json");
-        **/
+        
         $request_uri = trim($request_uri);
         
         $this->paths = explode('/', $request_uri);
