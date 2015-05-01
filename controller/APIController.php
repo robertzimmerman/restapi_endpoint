@@ -10,6 +10,9 @@ class APIController {
     // Property: APIConfig object
     protected $apiConfig;
     
+    
+   
+    
     public function setAPIConfig(APIConfig $apiConfig) {
         $this->apiConfig = $apiConfig;
     }
@@ -19,7 +22,14 @@ class APIController {
     }
     
     function jsonendpoint() {
-        return "HI THERE THIS IS COOL";
+        
+        $obj = json_decode($this->apiConfig->payload);
+        $this->logger(json_decode($this->apiConfig->payload));
+        $personList = new PersonList();
+        $personList->set($obj);
+        $this->logger($personList);
+                
+        return json_decode($this->apiConfig->payload);
     }
     
     // route to the function needed to get data
@@ -44,6 +54,18 @@ class APIController {
         $response['status'] = 404;
         return $response;
     }
+    
+    private function logger($contents) {
+        $dir = '/tmp/jsonendpoint.log';
+        $parts = explode('/', $dir);
+        $file = array_pop($parts);
+        $dir = '';
+        foreach($parts as $part)
+            if(!is_dir($dir .= "/$part")) mkdir($dir);
+        file_put_contents("$dir/$file", print_r($contents, TRUE));
+    }
+    
+    
     
   
    

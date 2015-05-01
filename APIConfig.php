@@ -6,7 +6,7 @@
  *  
  **/
 class APIConfig {
-    
+        
     // Property: method : Usage = HTTP_METHOD for request, usually GET && POST : String
     public $method = '';
     
